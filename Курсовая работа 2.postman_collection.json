@@ -1,0 +1,537 @@
+{
+	"info": {
+		"_postman_id": "6641e7e0-1bcb-4e94-8356-a9b807ca8e90",
+		"name": "Курсовая работа 2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27373727"
+	},
+	"item": [
+		{
+			"name": "Личные события",
+			"item": [
+				{
+					"name": "Получение расписание",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "token_global={{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"from\": \"2023-06-05T04:00:00+07:00\",\n    \"till\": \"2023-06-12T04:00:00+07:00\",\n    \"onlyTypes\": []\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}events",
+							"host": [
+								"{{baseURL}}events"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Создание персонального события",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var key = \"idPersonal\"",
+									"var value = pm.response.json().data.payload.id",
+									"pm.collectionVariables.set(key, value)",
+									"",
+									"var key = \"idStartAt\"",
+									"var value = pm.response.json().data.startAt",
+									"pm.collectionVariables.set(key, value)",
+									"",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "token_global={{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"backgroundColor\": \"#F4F5F6\",\n    \"color\": \"#81888D\",\n    \"description\": \"\",\n    \"title\": \"Kirill Noskov\",\n    \"startAt\": \"2023-06-07T22:30:00+07:00\",\n    \"endAt\": \"2023-06-07T23:00:00+07:00\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}createPersonal",
+							"host": [
+								"{{baseURL}}createPersonal"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Редактирование персонального события",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var key = \"idPersonal\"",
+									"var value = pm.response.json().data.payload.id",
+									"pm.collectionVariables.set(key, value)",
+									"",
+									"var key = \"idStartAt\"",
+									"var value = pm.response.json().data.startAt",
+									"pm.collectionVariables.set(key, value)",
+									"",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "token_global={{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"backgroundColor\": \"#F4F5F6\",\n    \"color\": \"#81888D\",\n    \"description\": \"\",\n    \"title\": \"Kirill Noskov\",\n    \"startAt\": \"2023-07-16T22:30:00+07:00\",\n    \"endAt\": \"2023-07-16T23:00:00+07:00\",\n    \"id\": {{idPersonal}},\n    \"oldStartAt\": \"{{idStartAt}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}updatePersonal",
+							"host": [
+								"{{baseURL}}updatePersonal"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Удаление персонального события",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "token_global={{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": {{idPersonal}},\n    \"startAt\": \"{{idStartAt}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}removePersonal",
+							"host": [
+								"{{baseURL}}removePersonal"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ЛC с некорректной датой",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var key = \"idPersonal\"",
+									"var value = pm.response.json().data.payload.id",
+									"pm.collectionVariables.set(key, value)",
+									"",
+									"var key = \"idStartAt\"",
+									"var value = pm.response.json().data.startAt",
+									"pm.collectionVariables.set(key, value)",
+									"",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "token_global={{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"backgroundColor\": \"#F4F5F6\",\n    \"color\": \"#81888D\",\n    \"description\": \"\",\n    \"title\": \"Kirill Noskov сдать домашку\",\n    \"startAt\": \"2023-05-15T05:30:00+07:00\",\n    \"endAt\": \"2023-05-15T06:00:00+07:00\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}createPersonal",
+							"host": [
+								"{{baseURL}}createPersonal"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ЛC в \"Описании \"принимает до 500 символов",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var key = \"idPersonal\"",
+									"var value = pm.response.json().data.payload.id",
+									"pm.collectionVariables.set(key, value)",
+									"",
+									"var key = \"idStartAt\"",
+									"var value = pm.response.json().data.startAt",
+									"pm.collectionVariables.set(key, value)",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "token_global={{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"backgroundColor\": \"#F4F5F6\",\n    \"color\": \"#81888D\",\n    \"description\": \"Как принято считать, явные признаки победы институционализации могут быть превращены в посмешище, хотя само их существование приносит несомненную пользу обществу. Таким образом, разбавленное изрядной долей эмпатии, рациональное мышление позволяет выполнить важные задания по разработке позиций, занимаемых участниками в отношении поставленных задач. Но понимание сути ресурсосберегающих технологий способствует подготовке и реализации экономической целесообразности принимаемых решений. Предварительн\",\n    \"title\": \"Описание на 500 символов\",\n    \"startAt\": \"2023-06-16T20:00:00+07:00\",\n    \"endAt\": \"2023-06-16T20:30:00+07:00\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}createPersonal",
+							"host": [
+								"{{baseURL}}createPersonal"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Редактирование личных событий",
+			"item": [
+				{
+					"name": "Редактирование времени ЛС",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var key = \"idPersonal\"",
+									"var value = pm.response.json().data.payload.id",
+									"pm.collectionVariables.set(key, value)",
+									"",
+									"var key = \"idStartAt\"",
+									"var value = pm.response.json().data.startAt",
+									"pm.collectionVariables.set(key, value)",
+									"",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "token_global={{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"backgroundColor\": \"#F4F5F6\",\n    \"color\": \"#81888D\",\n    \"description\": \"\",\n    \"title\": \"Kirill Noskov\",\n    \"startAt\": \"2023-07-19T07:00:00+07:00\",\n    \"endAt\": \"2023-07-19T07:30:00+07:00\",\n    \"id\": {{idPersonal}},\n    \"oldStartAt\": \"{{idStartAt}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}updatePersonal",
+							"host": [
+								"{{baseURL}}updatePersonal"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Редактирование цвета ЛС",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var key = \"idPersonal\"",
+									"var value = pm.response.json().data.payload.id",
+									"pm.collectionVariables.set(key, value)",
+									"",
+									"var key = \"idStartAt\"",
+									"var value = pm.response.json().data.startAt",
+									"pm.collectionVariables.set(key, value)",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "token_global={{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"backgroundColor\": \"#FFF7C7\",\n    \"color\": \"#FAC641\",\n    \"description\": \"\",\n    \"title\": \"Kirill\",\n    \"startAt\": \"2023-07-19T07:00:00+07:00\",\n    \"endAt\": \"2023-07-19T07:30:00+07:00\",\n    \"id\": {{idPersonal}},\n    \"oldStartAt\": \"{{idStartAt}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}updatePersonal",
+							"host": [
+								"{{baseURL}}updatePersonal"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Редактирование название ЛС",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var key = \"idPersonal\"",
+									"var value = pm.response.json().data.payload.id",
+									"pm.collectionVariables.set(key, value)",
+									"",
+									"var key = \"idStartAt\"",
+									"var value = pm.response.json().data.startAt",
+									"pm.collectionVariables.set(key, value)",
+									"",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "token_global={{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"backgroundColor\": \"#F4F5F6\",\n    \"color\": \"#81888D\",\n    \"description\": \"\",\n    \"title\": \"Kirill\",\n    \"startAt\": \"2023-07-19T07:00:00+07:00\",\n    \"endAt\": \"2023-07-19T07:30:00+07:00\",\n    \"id\": {{idPersonal}},\n    \"oldStartAt\": \"{{idStartAt}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}updatePersonal",
+							"host": [
+								"{{baseURL}}updatePersonal"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Редактирование описание ЛС",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var key = \"idPersonal\"",
+									"var value = pm.response.json().data.payload.id",
+									"pm.collectionVariables.set(key, value)",
+									"",
+									"var key = \"idStartAt\"",
+									"var value = pm.response.json().data.startAt",
+									"pm.collectionVariables.set(key, value)",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "token_global={{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"backgroundColor\": \"#FFF7C7\",\n    \"color\": \"#FAC641\",\n    \"description\": \"Kirill Noskov 33\",\n    \"title\": \"Kirill\",\n    \"startAt\": \"2023-07-19T07:00:00+07:00\",\n    \"endAt\": \"2023-07-19T07:30:00+07:00\",\n    \"id\": {{idPersonal}},\n    \"oldStartAt\": \"{{idStartAt}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}updatePersonal",
+							"host": [
+								"{{baseURL}}updatePersonal"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "baseURL",
+			"value": "https://api-teachers.skyeng.ru/v2/schedule/",
+			"type": "string"
+		},
+		{
+			"key": "idPersonal",
+			"value": ""
+		},
+		{
+			"key": "idStartAt",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
